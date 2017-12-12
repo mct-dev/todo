@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-import reducer from './todo'
+import { reducer, TYPES, initialState } from './todo'
 
 describe('Todo Reducer', () => {
 
@@ -9,37 +9,31 @@ describe('Todo Reducer', () => {
   })
 
   it('adds a todo', () => {
-    const startState = {
-      todos: []
-    }
     const endState = {
+      ...initialState,
       todos: [
         { id: 3, name: 'new todo', completed: false }
       ]
     }
     const action = {
-      type: 'TODO_ADD',
+      type: TYPES.ADD_TODO,
       payload: { id: 3, name: 'new todo', completed: false }
     }
-    const result = reducer(startState, action)
+    const result = reducer(initialState, action)
     // to.deep.equal is needed for objects. Won't pass otherwise.
     expect(result).to.deep.equal(endState)
   })
 
   it('updates currentTodo', () => {
-    const startState = {
-      todos: [],
-      currentTodo: ''
-    }
     const endState = {
-      todos: [],
+      ...initialState,
       currentTodo: 'updated'
     }
     const action = {
-      type: 'UPDATE_CURRENT_TODO',
+      type: TYPES.UPDATE_CURRENT_TODO,
       payload: 'updated'
     }
-    const result = reducer(startState, action)
+    const result = reducer(initialState, action)
     expect(result).to.deep.equal(endState)
   })
 })

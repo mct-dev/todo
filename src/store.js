@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import reducer from './reducers/todo'
+import { reducer } from './reducers/todo'
 
 export default createStore(reducer,
   // this line activates the Redux chrome web extension
