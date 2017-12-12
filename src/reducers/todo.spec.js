@@ -25,4 +25,21 @@ describe('Todo Reducer', () => {
     // to.deep.equal is needed for objects. Won't pass otherwise.
     expect(result).to.deep.equal(endState)
   })
+
+  it('updates currentTodo', () => {
+    const startState = {
+      todos: [],
+      currentTodo: ''
+    }
+    const endState = {
+      todos: [],
+      currentTodo: 'updated'
+    }
+    const action = {
+      type: 'UPDATE_CURRENT_TODO',
+      payload: 'updated'
+    }
+    const result = reducer(startState, action)
+    expect(result).to.deep.equal(endState)
+  })
 })

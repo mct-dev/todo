@@ -12,7 +12,10 @@ class App extends Component {
           <h1>Todo</h1>
         </div>
         <div>
-          <TodoForm />
+          <TodoForm
+            currentTodo={this.props.currentTodo}
+            changeCurrent={this.props.changeCurrent}
+          />
           <TodoList todos={this.props.todos} />
         </div>
       </div>
@@ -21,7 +24,9 @@ class App extends Component {
 }
 
 App.propTypes = {
-  todos: PropTypes.object
+  todos: PropTypes.array,
+  currentTodo: PropTypes.string,
+  changeCurrent: PropTypes.func,
 }
 
 export default App
