@@ -12,6 +12,7 @@ describe('Todo Reducer', () => {
     const endState = {
       ...initialState,
       todos: [
+        ...initialState.todos,
         { id: 3, name: 'new todo', completed: false }
       ]
     }
@@ -32,6 +33,24 @@ describe('Todo Reducer', () => {
     const action = {
       type: TYPES.UPDATE_CURRENT_TODO,
       payload: 'updated'
+    }
+    const result = reducer(initialState, action)
+    expect(result).to.deep.equal(endState)
+  })
+
+  it('loads todos into state from payload', () => {
+    const endState = {
+      ...initialState,
+      todos: [
+        ...initialState.todos,
+        {id:0, name: 'loaded todos', completed: false}
+      ]
+    }
+    const action = {
+      type: TYPES.LOAD_TODOS,
+      payload: [
+        {id:0, name: 'loaded todos', completed: false}
+      ]
     }
     const result = reducer(initialState, action)
     expect(result).to.deep.equal(endState)

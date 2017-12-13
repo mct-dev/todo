@@ -1,3 +1,5 @@
+import { getTodos } from '../lib/todoServices'
+
 export const initialState = {
   todos: [],
   currentTodo: '',
@@ -10,6 +12,7 @@ export const initialState = {
 export const TYPES = {
   ADD_TODO: 'ADD_TODO',
   UPDATE_CURRENT_TODO: 'UPDATE_CURRENT_TODO',
+  LOAD_TODOS: 'LOAD_TODOS',
 }
 
 /**
@@ -22,6 +25,19 @@ export const updateCurrent = (val) => (
     payload: val
   }
 )
+const loadTodos = (todos) => (
+  {
+    type: TYPES.LOAD_TODOS,
+    payload: todos
+  }
+)
+
+export const fetchTodos = () => {
+  return (dispatch) => {
+    getTodos()
+      .then(jsonResponse => dispatch(loadTodos(jsonResponse)))
+  }
+}
 
 /**
  * There should only be ONE reducer in Redux.  This is a
@@ -40,6 +56,11 @@ export const reducer = (state=initialState, action) => {
       return {
         ...state,
         currentTodo: action.payload
+      }
+    case TYPES.LOAD_TODOS:
+      return {
+        ...state,
+        todos: action.payload
       }
     default:
       return state

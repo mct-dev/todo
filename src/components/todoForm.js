@@ -1,16 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { updateCurrent } from '../reducers/todo'
 
 const TodoForm = (props) => {
 
-  const { currentTodo, changeCurrent } = props
+  const { currentTodo, updateCurrent } = props
 
   const handleInputChange = (e) => {
     let val = e.target.value
-    // we pass in the store dispatch function to props instead of writing it here
-    // because it helps containerize the todoform component.  There should be
-    // no business logic written in any react components
-    changeCurrent(val)
+    updateCurrent(val)
   }
 
   return (
@@ -22,7 +21,12 @@ const TodoForm = (props) => {
 
 TodoForm.propTypes = {
   currentTodo: PropTypes.string,
-  changeCurrent: PropTypes.func,
+  updateCurrent: PropTypes.func,
 }
 
-export default TodoForm
+// connect our redux state and dispatch functions to this component
+export default connect(
+  // maps state.currentTodo to our props for this component (as props.currentTodo)
+  (state) => ({currentTodo: state.currentTodo}),
+  {updateCurrent}
+)(TodoForm)
