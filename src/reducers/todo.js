@@ -1,13 +1,15 @@
-import { getTodos } from '../lib/todoServices'
+import { getTodos, createTodo } from '../lib/todoServices'
 
+/**
+ * INITIAL STATE
+ */
 export const initialState = {
   todos: [],
   currentTodo: '',
 }
 
 /**
- * separate types into their own object for easy tracking and
- * to avoid code repitition.
+ * ACTION TYPES
  */
 export const TYPES = {
   ADD_TODO: 'ADD_TODO',
@@ -16,13 +18,18 @@ export const TYPES = {
 }
 
 /**
- * "Dispatch" functions, which you can use in
- * store.dispatch() for redux.
+ * ACTION CREATORS
  */
 export const updateCurrent = (val) => (
   {
     type: TYPES.UPDATE_CURRENT_TODO,
     payload: val
+  }
+)
+export const addTodo = (todo) => (
+  {
+    type: TYPES.ADD_TODO,
+    payload: todo
   }
 )
 const loadTodos = (todos) => (
@@ -32,24 +39,31 @@ const loadTodos = (todos) => (
   }
 )
 
+/**
+ * DISPATCH FUNCTIONS (dispatching actions)
+ */
 export const fetchTodos = () => {
   return (dispatch) => {
     getTodos()
       .then(jsonResponse => dispatch(loadTodos(jsonResponse)))
   }
 }
+export const saveTodo = (name) => {
+  return (dispatch) => {
+    createTodo(name)
+      .then(jsonResponse => dispatch(addTodo(jsonResponse)))
+  }
+}
 
 /**
- * There should only be ONE reducer in Redux.  This is a
- * core concept of Redux - the root reducer.  This reducer will
- * always return the entire state, which is why store.getState()
- * work - it just gets the result of the reducer function.
+ * ROOT REDUCER
  */
 export const reducer = (state=initialState, action) => {
   switch (action.type) {
     case TYPES.ADD_TODO:
       return {
         ...state,
+        currentTodo: '',
         todos: [ ...state.todos, action.payload]
       }
     case TYPES.UPDATE_CURRENT_TODO:
