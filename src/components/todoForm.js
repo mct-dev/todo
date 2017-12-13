@@ -34,6 +34,6 @@ TodoForm.propTypes = {
 // connect our redux state and dispatch functions to this component
 export default connect(
   // maps state.currentTodo to our props for this component (as props.currentTodo)
-  (state) => ({currentTodo: state.currentTodo}),
+  (state) => ({currentTodo: state.todo.currentTodo}),
   {updateCurrent, saveTodo}
 )(TodoForm)

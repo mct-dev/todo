@@ -2,6 +2,7 @@ body, html {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 2em;
 }
 
 .list > ul {
@@ -19,4 +20,16 @@ ul {
 
 li > input {
   margin: 10px;
+}
+
+.message {
+  position: absolute;
+  top: -5px;
+  left: 30vw;
+  width: 40vw;
+  padding: 15px 10px 10px 10px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #dbd8d8;
+  color: rgb(10, 72, 96);
 }

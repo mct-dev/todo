@@ -42,6 +42,6 @@ TodoList.propTypes = {
 // connect our redux state and dispatch functions to this component
 export default connect(
   // maps state.todos to our props for this component (as props.todos)
-  (state) => ({todos: state.todos}),
+  (state) => ({todos: state.todo.todos}),
   {fetchTodos}
 )(TodoList)

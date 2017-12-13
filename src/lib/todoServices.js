@@ -23,3 +23,18 @@ export const createTodo = (name) => {
       .then(res => res.json())
   )
 }
+
+export const destroyTodo = (name) => {
+  // db.json -- json-server package
+  return (
+    fetch(devServer, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: name, completed: false})
+    })
+      .then(res => res.json())
+  )
+}

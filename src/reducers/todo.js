@@ -1,4 +1,5 @@
-import { getTodos, createTodo } from '../lib/todoServices'
+import { getTodos, createTodo, destroyTodo } from '../lib/todoServices'
+import { showMessage } from './message'
 
 /**
  * INITIAL STATE
@@ -13,6 +14,7 @@ export const initialState = {
  */
 export const TYPES = {
   ADD_TODO: 'ADD_TODO',
+  REMOVE_TODO: 'REMOVE_TODO',
   UPDATE_CURRENT_TODO: 'UPDATE_CURRENT_TODO',
   LOAD_TODOS: 'LOAD_TODOS',
 }
@@ -32,6 +34,12 @@ export const addTodo = (todo) => (
     payload: todo
   }
 )
+export const removeTodo= (todo) => (
+  {
+    type: TYPES.REMOVE_TODO,
+    payload: todo
+  }
+)
 const loadTodos = (todos) => (
   {
     type: TYPES.LOAD_TODOS,
@@ -44,26 +52,41 @@ const loadTodos = (todos) => (
  */
 export const fetchTodos = () => {
   return (dispatch) => {
+    dispatch(showMessage('Loading todos...'))
     getTodos()
       .then(jsonResponse => dispatch(loadTodos(jsonResponse)))
   }
 }
 export const saveTodo = (name) => {
   return (dispatch) => {
+    dispatch(showMessage('Saving Todo...'))
     createTodo(name)
       .then(jsonResponse => dispatch(addTodo(jsonResponse)))
+  }
+}
+export const deleteTodo = (name) => {
+  return (dispatch) => {
+    dispatch(showMessage('Deleting Todo...'))
+    destroyTodo(name)
+      .then(jsonResponse => dispatch(removeTodo(jsonResponse)))
   }
 }
 
 /**
  * ROOT REDUCER
  */
-export const reducer = (state=initialState, action) => {
+export default (state=initialState, action) => {
   switch (action.type) {
     case TYPES.ADD_TODO:
       return {
         ...state,
         currentTodo: '',
+        todos: [ ...state.todos, action.payload]
+      }
+    case TYPES.REMOVE_TODO:
+
+      return {
+        ...state,
         todos: [ ...state.todos, action.payload]
       }
     case TYPES.UPDATE_CURRENT_TODO:
