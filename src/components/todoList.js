@@ -1,18 +1,27 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTodos } from '../reducers/todo'
+import { fetchTodos, toggleTodo, deleteTodo, getVisibleTodos } from '../reducers/todo'
 
-const TodoItem = ({name, completed}) => (
-  <li>
-    <input type='checkbox' defaultChecked={completed} />
-    {name}
-  </li>
-)
+const TodoItem = ({id, name, completed, toggleTodo, deleteTodo}) => {
+
+  return (
+    <li>
+      <input type='checkbox' 
+        onChange={() => toggleTodo(id)}
+        defaultChecked={completed} 
+      />
+      {name}
+      <span className="delete-item" onClick={() => deleteTodo(id)}><button>x</button></span>
+    </li>
+  )
+}
 TodoItem.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   completed: PropTypes.bool,
+  toggleTodo: PropTypes.func,
+  deleteTodo: PropTypes.func,
 }
 
 class TodoList extends Component {
@@ -26,7 +35,8 @@ class TodoList extends Component {
       <div className="list">
         <ul>
           {this.props.todos.map(todo => (
-            <TodoItem key={todo.id} {...todo} />
+            <TodoItem key={todo.id} deleteTodo={this.props.deleteTodo}
+              toggleTodo={this.props.toggleTodo} {...todo} />
           ))}
         </ul>
       </div>
@@ -37,11 +47,13 @@ class TodoList extends Component {
 TodoList.propTypes = {
   todos: PropTypes.array,
   fetchTodos: PropTypes.func,
+  toggleTodo: PropTypes.func,
+  deleteTodo: PropTypes.func,
 }
 
 // connect our redux state and dispatch functions to this component
 export default connect(
   // maps state.todos to our props for this component (as props.todos)
-  (state) => ({todos: state.todo.todos}),
-  {fetchTodos}
+  (state, ownProps) => ({todos: getVisibleTodos(state.todo.todos, ownProps.filter)}),
+  {toggleTodo, fetchTodos, deleteTodo}
 )(TodoList)

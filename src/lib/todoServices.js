@@ -24,16 +24,41 @@ export const createTodo = (name) => {
   )
 }
 
-export const destroyTodo = (name) => {
-  // db.json -- json-server package
+export const updateTodo = (todo) => {
   return (
-    fetch(devServer, {
-      method: 'POST',
+    fetch(devServer + `/${todo.id}`, {
+      method: 'PUT',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({name: name, completed: false})
+      body: JSON.stringify(todo)
+    })
+      .then(res => res.json())
+  )
+}
+
+export const destroyTodo = (id) => {
+  return (
+    fetch(devServer + `/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+  )
+}
+
+export const completeTodo = (todo) => {
+  return (
+    fetch(devServer + `/${todo.id}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(todo)
     })
       .then(res => res.json())
   )

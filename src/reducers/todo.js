@@ -1,5 +1,6 @@
-import { getTodos, createTodo, destroyTodo } from '../lib/todoServices'
+import { getTodos, createTodo, destroyTodo, updateTodo } from '../lib/todoServices'
 import { showMessage } from './message'
+
 
 /**
  * INITIAL STATE
@@ -17,35 +18,17 @@ export const TYPES = {
   REMOVE_TODO: 'REMOVE_TODO',
   UPDATE_CURRENT_TODO: 'UPDATE_CURRENT_TODO',
   LOAD_TODOS: 'LOAD_TODOS',
+  REPLACE_TODO: 'REPLACE_TODO',
 }
 
 /**
  * ACTION CREATORS
  */
-export const updateCurrent = (val) => (
-  {
-    type: TYPES.UPDATE_CURRENT_TODO,
-    payload: val
-  }
-)
-export const addTodo = (todo) => (
-  {
-    type: TYPES.ADD_TODO,
-    payload: todo
-  }
-)
-export const removeTodo= (todo) => (
-  {
-    type: TYPES.REMOVE_TODO,
-    payload: todo
-  }
-)
-const loadTodos = (todos) => (
-  {
-    type: TYPES.LOAD_TODOS,
-    payload: todos
-  }
-)
+export const updateCurrent = (val) => ({type: TYPES.UPDATE_CURRENT_TODO, payload: val})
+export const addTodo = (todo) => ({type: TYPES.ADD_TODO, payload: todo})
+export const removeTodo = (id) => ({type: TYPES.REMOVE_TODO, payload: id})
+export const replaceTodo = (todo) => ({type: TYPES.REPLACE_TODO, payload: todo})
+const loadTodos = (todos) => ({type: TYPES.LOAD_TODOS, payload: todos})
 
 /**
  * DISPATCH FUNCTIONS (dispatching actions)
@@ -64,11 +47,38 @@ export const saveTodo = (name) => {
       .then(jsonResponse => dispatch(addTodo(jsonResponse)))
   }
 }
-export const deleteTodo = (name) => {
+export const toggleTodo = (id) => {
+  return (dispatch, getState) => {
+    dispatch(showMessage('Updating Todo Item...'))
+    // get only todo portion of state
+    const {todos} = getState().todo
+    const todo = todos.find( t => t.id===id)
+    const toggled = {...todo, completed: !todo.completed}
+    // api call
+    updateTodo(toggled)
+      // update state by dispatching an action
+      .then(res => dispatch(replaceTodo(res)))
+  }
+}
+
+export const deleteTodo = (id) => {
   return (dispatch) => {
     dispatch(showMessage('Deleting Todo...'))
-    destroyTodo(name)
-      .then(jsonResponse => dispatch(removeTodo(jsonResponse)))
+    destroyTodo(id)
+      .then(() => dispatch(removeTodo(id)))
+  }
+}
+/**
+ * TODOS FILTER
+ */
+export const getVisibleTodos = (todos, filter) => {
+  switch (filter) {
+    case 'active':
+      return todos.filter(t => !t.completed)
+    case 'completed':
+      return todos.filter(t => t.completed)
+    default:
+      return todos
   }
 }
 
@@ -84,10 +94,9 @@ export default (state=initialState, action) => {
         todos: [ ...state.todos, action.payload]
       }
     case TYPES.REMOVE_TODO:
-
       return {
         ...state,
-        todos: [ ...state.todos, action.payload]
+        todos: state.todos.filter(t => t.id !== action.payload)
       }
     case TYPES.UPDATE_CURRENT_TODO:
       return {
@@ -98,6 +107,11 @@ export default (state=initialState, action) => {
       return {
         ...state,
         todos: action.payload
+      }
+    case TYPES.REPLACE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map( t => t.id === action.payload.id ? action.payload : t)
       }
     default:
       return state

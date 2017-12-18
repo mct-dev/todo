@@ -33,3 +33,26 @@ li > input {
   border: 1px solid #dbd8d8;
   color: rgb(10, 72, 96);
 }
+
+li span.delete-item {
+  visibility: hidden;
+}
+
+span.delete-item button{
+  background: none;
+  border: none;
+  border-radius: 2px;
+  float: right;
+  padding: 0px 8px 3px 8px;
+  color: rgba(255, 0, 0, 0.596);
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+li:hover span.delete-item {
+  visibility: visible;
+}
+
+a {
+  padding: 0 10px;
+}

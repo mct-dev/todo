@@ -11,6 +11,7 @@ export default (state='', action) => {
     case TYPES.ADD_TODO:
     case TYPES.REMOVE_TODO:
     case TYPES.LOAD_TODOS:
+    case TYPES.REPLACE_TODO:
       return ''
     default:
       return state
