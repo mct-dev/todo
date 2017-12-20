@@ -17,10 +17,11 @@ body, html {
 }
 
 .add-todo {
-    border: 1px solid #dbd8d8;
+    border:none;
+    /* border-left: 1px solid #dbd8d8; */
     border-radius: '3px';
     min-width: 200px;
-    padding: 10px 20px;
+    padding: 10px 40px;
 }
 
 .message {

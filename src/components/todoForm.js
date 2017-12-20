@@ -20,7 +20,7 @@ class TodoForm extends Component {
     const { currentTodo } = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <input className="add-todo" type="text" onChange={this.handleInputChange} value={currentTodo}/>
+        <input className="add-todo" type="text" placeholder="New Todo" onChange={this.handleInputChange} value={currentTodo}/>
       </form>
     )
   }
