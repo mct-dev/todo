@@ -16,6 +16,7 @@ export const initialState = {
 export const TYPES = {
   ADD_TODO: 'ADD_TODO',
   REMOVE_TODO: 'REMOVE_TODO',
+  UPDATE_TODO: 'UPDATE_TODO',
   UPDATE_CURRENT_TODO: 'UPDATE_CURRENT_TODO',
   LOAD_TODOS: 'LOAD_TODOS',
   REPLACE_TODO: 'REPLACE_TODO',
@@ -42,9 +43,18 @@ export const fetchTodos = () => {
 }
 export const saveTodo = (name) => {
   return (dispatch) => {
-    dispatch(showMessage('Saving Todo...'))
+    dispatch(showMessage('Creating Todo...'))
     createTodo(name)
       .then(jsonResponse => dispatch(addTodo(jsonResponse)))
+  }
+}
+export const updateTodoName = (name, id) => {
+  return (dispatch, getState) => {
+    const {todos} = getState().todo
+    const matchingTodo = todos.find(t => t.id ===id)
+    const revisedTodo = {...matchingTodo, name: name}
+    updateTodo(revisedTodo)
+      .then(res=>dispatch(replaceTodo(res)))
   }
 }
 export const toggleTodo = (id) => {

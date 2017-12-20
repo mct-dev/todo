@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-import { reducer, TYPES, initialState } from './todo'
+import reducer, { TYPES, initialState } from './todo'
 
 describe('Todo Reducer', () => {
 
@@ -53,6 +53,27 @@ describe('Todo Reducer', () => {
       ]
     }
     const result = reducer(initialState, action)
+    expect(result).to.deep.equal(endState)
+  })
+  it('updates the name of a todo (todo.name)', () => {
+    const startState = {
+      ...initialState,
+      todos: [
+        ...initialState.todos,
+        {id:0, name:'START NAME', completed: false}
+      ]
+    }
+    const endState = {
+      ...startState,
+      todos: [
+        {id:0, name:'END NAME', completed: false}
+      ]
+    }
+    const action = {
+      type: TYPES.REPLACE_TODO,
+      payload: {id:0, name: 'END NAME', completed: false}
+    }
+    const result = reducer(startState, action)
     expect(result).to.deep.equal(endState)
   })
 })

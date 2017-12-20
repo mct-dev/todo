@@ -4,7 +4,7 @@ import messageReducer from './reducers/message'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
   todo: todoReducer,
   message: messageReducer
 })
