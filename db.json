@@ -1,34 +1,19 @@
 {
   "todos": [
     {
-      "name": "wowenter",
+      "name": "first",
+      "completed": true,
+      "id": 1
+    },
+    {
+      "name": "second",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "name": "third",
       "completed": false,
       "id": 3
-    },
-    {
-      "name": "oalkkdfdf",
-      "completed": true,
-      "id": 4
-    },
-    {
-      "name": "jdkjdf",
-      "completed": false,
-      "id": 5
-    },
-    {
-      "name": "eggg",
-      "completed": true,
-      "id": 6
-    },
-    {
-      "name": "another",
-      "completed": true,
-      "id": 8
-    },
-    {
-      "name": "new",
-      "completed": false,
-      "id": 9
     }
   ]
 }
