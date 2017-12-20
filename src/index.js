@@ -9,7 +9,7 @@ import store from './store'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App wait={1500} />
   </Provider>
   , document.getElementById('root'))
 

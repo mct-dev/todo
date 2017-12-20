@@ -21,11 +21,6 @@
       "id": 6
     },
     {
-      "name": "asdf",
-      "completed": false,
-      "id": 7
-    },
-    {
       "name": "another",
       "completed": true,
       "id": 8

@@ -15,7 +15,6 @@ class TodoItem extends Component {
         <input type="text" className="content" defaultValue={this.props.name} />
         <span className="delete-item" onClick={() => this.props.deleteTodo(this.props.id)}><button>x</button></span>
       </li>
-
     )
   }
 }

@@ -56,7 +56,7 @@ export const toggleTodo = (id) => {
     const toggled = {...todo, completed: !todo.completed}
     // api call
     updateTodo(toggled)
-      // update state by dispatching an action
+    // update state by dispatching an action
       .then(res => dispatch(replaceTodo(res)))
   }
 }
