@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { updateCurrent, saveTodo } from '../reducers/todo'
 
+
 class TodoForm extends Component {
 
   handleInputChange = (e) => {
@@ -19,7 +20,7 @@ class TodoForm extends Component {
     const { currentTodo } = this.props
     return (
       <form onSubmit={this.handleSubmit}>
-        <input type="text" onChange={this.handleInputChange} value={currentTodo}/>
+        <input className="add-todo" type="text" onChange={this.handleInputChange} value={currentTodo}/>
       </form>
     )
   }

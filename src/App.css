@@ -3,23 +3,24 @@ body, html {
   align-items: center;
   justify-content: center;
   padding-top: 2em;
+  font-size: 1.1em;
 }
 
 .list > ul {
   list-style: none;
 }
 
-input[type="text"] {
-  border: 1px solid #dbd8d8;
-  border-radius: 3px;
+.list-container {
+  border: 1px solid #d8d8d8;
+  padding: 20px 40px;
+  min-width: 100px;
 }
 
-ul {
-  padding: 0;
-}
-
-li > input {
-  margin: 10px;
+.add-todo {
+    border: 1px solid #dbd8d8;
+    border-radius: '3px';
+    min-width: 200px;
+    padding: 10px 20px;
 }
 
 .message {
@@ -39,6 +40,9 @@ li span.delete-item {
 }
 
 span.delete-item button{
+  position: absolute;
+  right: 0;
+  top: -4px;
   background: none;
   border: none;
   border-radius: 2px;
@@ -55,4 +59,46 @@ li:hover span.delete-item {
 
 a {
   padding: 0 10px;
+  text-decoration: none;
+  color: #657ead
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  position: relative;
+  margin: 8px 0;
+}
+
+li > input {
+  border: none;
+}
+
+.checkbox {
+  -webkit-appearance: none;
+  background-color: #fafafa;
+  border-radius: 3px;
+  border: 1px solid #c7c6c6;
+  position: absolute;
+  height: 100%;
+  width: 25px;
+  margin-right: 15px;
+}
+.checkbox:checked {
+  background-color: #e9ecee;
+  border: none;
+  color: #99a1a7;
+}
+.checkbox:checked:after {
+  content: '\2714';
+  position: absolute;
+  top: 1px;
+  left: 5px;
+  color: #99a1a7;
+  }
+
+.content {
+  margin: 0 0 0px 45px;
 }

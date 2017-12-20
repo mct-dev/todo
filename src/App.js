@@ -13,14 +13,14 @@ class App extends Component {
         <div className="header">
           <h1>Todo</h1>
         </div>
+        <Message />
         <Router>
-          <div>
-            <Message />
-            <TodoForm />
+          <div className="list-container">
+            <Filter />
             <Route path='/:filter?' render={({match}) => (
               <TodoList filter={match.params.filter} />
             )} />
-            <Filter />
+            <TodoForm />
           </div>
         </Router>
       </div>

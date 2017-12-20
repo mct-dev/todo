@@ -3,18 +3,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { fetchTodos, toggleTodo, deleteTodo, getVisibleTodos } from '../reducers/todo'
 
-const TodoItem = ({id, name, completed, toggleTodo, deleteTodo}) => {
+class TodoItem extends Component {
+  render () {
+    return (
+      <li>
+        <input type='checkbox' 
+          className='checkbox'
+          onChange={() => this.props.toggleTodo(this.props.id)}
+          defaultChecked={this.props.completed} 
+        />
+        <input type="text" className="content" defaultValue={this.props.name} />
+        <span className="delete-item" onClick={() => this.props.deleteTodo(this.props.id)}><button>x</button></span>
+      </li>
 
-  return (
-    <li>
-      <input type='checkbox' 
-        onChange={() => toggleTodo(id)}
-        defaultChecked={completed} 
-      />
-      {name}
-      <span className="delete-item" onClick={() => deleteTodo(id)}><button>x</button></span>
-    </li>
-  )
+    )
+  }
 }
 TodoItem.propTypes = {
   id: PropTypes.number,

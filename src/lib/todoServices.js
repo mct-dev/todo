@@ -1,10 +1,10 @@
 
-let devServer = 'http://localhost:8080/todos'
+let baseUrl = process.env.REACT_APP_BASE_URL
 
 export const getTodos = () => {
   // db.json -- json-server package
   return (
-    fetch(devServer)
+    fetch(`${baseUrl}`)
       .then(res => res.json())
   )
 }
@@ -12,7 +12,7 @@ export const getTodos = () => {
 export const createTodo = (name) => {
   // db.json -- json-server package
   return (
-    fetch(devServer, {
+    fetch(`${baseUrl}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -26,7 +26,7 @@ export const createTodo = (name) => {
 
 export const updateTodo = (todo) => {
   return (
-    fetch(devServer + `/${todo.id}`, {
+    fetch(`${baseUrl}/${todo.id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
@@ -40,7 +40,7 @@ export const updateTodo = (todo) => {
 
 export const destroyTodo = (id) => {
   return (
-    fetch(devServer + `/${id}`, {
+    fetch(`${baseUrl}/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
@@ -52,7 +52,7 @@ export const destroyTodo = (id) => {
 
 export const completeTodo = (todo) => {
   return (
-    fetch(devServer + `/${todo.id}`, {
+    fetch(`${baseUrl}/${todo.id}`, {
       method: 'PUT',
       headers: {
         'Accept': 'application/json',
