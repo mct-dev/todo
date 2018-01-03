@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchTodos, toggleTodo, deleteTodo, updateTodoName, getVisibleTodos } from '../reducers/todo'
+import { fetchTodos, toggleTodo, deleteTodo, updateTodoName, getVisibleTodos, clearAllAndFetch, clearCompletedAndFetch } from '../reducers/todo'
 
 class TodoItem extends Component {
   blurUpdateItemName = (event) => {
@@ -40,11 +40,12 @@ TodoItem.propTypes = {
 
 class TodoList extends Component {
 
-  componentDidMount() {
-    this.props.fetchTodos()
+  componentWillMount() {
+    this.props.clearAllAndFetch()
   }
 
   render() {
+    
     return (
       <div className="list">
         <ul>
@@ -65,11 +66,13 @@ TodoList.propTypes = {
   toggleTodo: PropTypes.func,
   deleteTodo: PropTypes.func,
   updateTodoName: PropTypes.func,
+  clearAllAndFetch: PropTypes.func,
+  clearCompletedAndFetch: PropTypes.func,
 }
 
 // connect our redux state and dispatch functions to this component
 export default connect(
   // maps state.todos to our props for this component (as props.todos)
   (state, ownProps) => ({todos: getVisibleTodos(state.todo.todos, ownProps.filter)}),
-  {toggleTodo, fetchTodos, deleteTodo, updateTodoName}
+  {toggleTodo, fetchTodos, deleteTodo, updateTodoName, clearAllAndFetch, clearCompletedAndFetch}
 )(TodoList)

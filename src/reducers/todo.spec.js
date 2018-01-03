@@ -1,5 +1,5 @@
 const expect = require('chai').expect
-import reducer, { TYPES, initialState } from './todo'
+import reducer, { TYPES, initialState, clearAllTodos } from './todo'
 
 describe('Todo Reducer', () => {
 
@@ -77,3 +77,22 @@ describe('Todo Reducer', () => {
     expect(result).to.deep.equal(endState)
   })
 })
+// describe('TodoService', () => {
+//   it('destroys all pre-existing todos', () => {
+//     const startState = {
+//       ...initialState,
+//       todos: [
+//         ...initialState.todos,
+//         {id:0, name:'START NAME', completed: false},
+//         {id:1, name:'START NAME2', completed: true}
+//       ]
+//     }
+//     const endState = {
+//       ...startState,
+//       todos: []
+//     }
+//     const result = clearAllTodos() 
+//     expect(result).to.deep.equal(endState)
+//   })
+
+// })

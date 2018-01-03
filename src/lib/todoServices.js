@@ -63,3 +63,11 @@ export const completeTodo = (todo) => {
       .then(res => res.json())
   )
 }
+
+export const destroyMany = (todoIds) => {
+  return (
+    todoIds.forEach(id => {
+      destroyTodo(id)
+    })
+  )
+}

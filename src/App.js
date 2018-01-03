@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './App.css'
 import TodoForm from './components/todoForm'
 import TodoList from './components/todoList'
 import Message from './components/message'
 import Filter from './components/filter'
+import { clearCompletedAndFetch } from './reducers/todo'
 
 class App extends Component {
   state = {
@@ -20,6 +22,9 @@ class App extends Component {
     }, 
     this.props.wait
     )
+  }
+  clearCompleted = () => {
+
   }
   render() {
     return (
@@ -40,6 +45,7 @@ class App extends Component {
                 <TodoList filter={match.params.filter} />
               )} />
               <TodoForm />
+              <button onClick={this.clearCompleted}>Clear Completed</button>
             </div>
           </Router>
         </div>
@@ -50,6 +56,10 @@ class App extends Component {
 
 App.propTypes = {
   wait: PropTypes.number,
+  clearCompletedAndFetch: PropTypes.func,
 }
 
-export default App
+export default connect(
+  (state) => ({}),
+  {clearCompletedAndFetch}
+)(App)
