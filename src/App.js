@@ -7,7 +7,6 @@ import TodoForm from './components/todoForm'
 import TodoList from './components/todoList'
 import Message from './components/message'
 import Filter from './components/filter'
-import { clearCompletedAndFetch } from './reducers/todo'
 
 class App extends Component {
   state = {
@@ -24,7 +23,7 @@ class App extends Component {
     )
   }
   clearCompleted = () => {
-
+    // TODO:  add button for clearing completed todos.
   }
   render() {
     return (
@@ -45,7 +44,6 @@ class App extends Component {
                 <TodoList filter={match.params.filter} />
               )} />
               <TodoForm />
-              <button onClick={this.clearCompleted}>Clear Completed</button>
             </div>
           </Router>
         </div>
@@ -61,5 +59,5 @@ App.propTypes = {
 
 export default connect(
   (state) => ({}),
-  {clearCompletedAndFetch}
+  {}
 )(App)

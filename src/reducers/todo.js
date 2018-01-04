@@ -1,6 +1,5 @@
 import { getTodos, createTodo, destroyTodo, destroyMany, updateTodo } from '../lib/todoServices'
 import { showMessage } from './message'
-import todoForm from '../components/todoForm';
 
 
 /**
@@ -77,34 +76,6 @@ export const deleteTodo = (id) => {
     dispatch(showMessage('Deleting Todo...'))
     destroyTodo(id)
       .then(() => dispatch(removeTodo(id)))
-  }
-}
-
-export const clearAllAndFetch = () => {
-  return (dispatch, getState) => {
-    var ids = []
-    const {todos} = getState().todo
-    todos.forEach(todo => {
-      ids.push(todo.id)
-    })
-    // service API: destroy all
-    destroyMany(ids)
-    fetchTodos()
-  }
-}
-
-export const clearCompletedAndFetch = () => {
-  return (dispatch, getState) => {
-    const {todos} = getState().todo
-    todos.forEach(todo => {
-      if (todo.completed) {
-        deleteTodo(todo.id)
-        console.log(deleteTodo)
-        
-      }      
-    })
-    // service API: destroy all
-    fetchTodos()
   }
 }
 
