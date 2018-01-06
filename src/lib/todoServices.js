@@ -1,10 +1,9 @@
+let baseUrl = process.env.REACT_APP_TODOS_URL
+var axios = require('axios')
 
-let baseUrl = process.env.REACT_APP_BASE_URL
-
-export const getTodos = () => {
-  // db.json -- json-server package
+export const getTodos = () => { 
   return (
-    fetch(`${baseUrl}`)
+    fetch(`${baseUrl}`, {mode: 'cors'})
       .then(res => res.json())
   )
 }
@@ -14,10 +13,6 @@ export const createTodo = (name) => {
   return (
     fetch(`${baseUrl}`, {
       method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
       body: JSON.stringify({name: name, completed: false})
     })
       .then(res => res.json())
