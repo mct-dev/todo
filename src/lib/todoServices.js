@@ -1,5 +1,5 @@
 let baseUrl = process.env.REACT_APP_TODOS_URL
-var axios = require('axios')
+// var axios = require('axios')
 
 export const getTodos = () => { 
   return (
@@ -13,6 +13,10 @@ export const createTodo = (name) => {
   return (
     fetch(`${baseUrl}`, {
       method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({name: name, completed: false})
     })
       .then(res => res.json())
