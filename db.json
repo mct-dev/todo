@@ -1,9 +1,3 @@
 {
-  "todos": [
-    {
-      "name": "asdf",
-      "completed": false,
-      "id": 28
-    }
-  ]
+  "todos": []
 }
